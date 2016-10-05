@@ -11,22 +11,7 @@ public class AppRun {
 
 	public static void main(String[] args) {
 		
-/*		Customer customer = null;        
-        Order order;
-        
-        OrderService orderService = new SimpleOrderService();
-        
-       
-        
-        System.out.println(order);*/
-		
-/*		
-		PizzaService pizzaService = new SimplePizzaService();
-        System.out.println(pizzaService.getPizzaByID(1));*/
         Context context = new ApplicationContext(new JavaConfig());
-        
-       // PizzaRepository pizzaRepository = context.getBean("pizzaRepository");
-       // System.out.println(pizzaRepository.getPizzaByID(1));
         
         
         Customer customer = null;
