@@ -16,7 +16,7 @@ public class AppRun {
         
         Customer customer = null;
         OrderService orderService = context.getBean("orderService");
-        Order order = orderService.placeNewOrder(customer, 1 , 3);
+        Order order = orderService.placeNewOrder(customer, 1  , 3);
         System.out.println(order);
 	}
 }
