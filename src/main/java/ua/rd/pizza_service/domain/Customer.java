@@ -4,15 +4,20 @@ public class Customer {
 
 	private long id;
 	private String name;
+	private CustomerAddress address;
+	private AccumulativeCard card;
 
 	public Customer() {
 	}
 
-	public Customer(long id, String name) {
+	public Customer(long id, String name, CustomerAddress address, AccumulativeCard card) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.address = address;
+		this.card = card;
 	}
+
 
 	public long getId() {
 		return id;
@@ -30,4 +35,21 @@ public class Customer {
 		this.name = name;
 	}
 
+	public CustomerAddress getAddress() {
+		return address;
+	}
+	
+	public void setAddress(CustomerAddress address) {
+		this.address = address;
+	}
+
+	public AccumulativeCard getCard() {
+		return card;
+	}
+
+	public void setCard(AccumulativeCard card) {
+		this.card = card;
+	}
+	
+	
 }
