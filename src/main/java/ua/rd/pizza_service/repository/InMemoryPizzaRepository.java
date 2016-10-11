@@ -3,9 +3,13 @@ package ua.rd.pizza_service.repository;
 import java.util.HashMap;
 import java.util.Map;
 
-import ua.rd.pizza_service.domain.Pizza;
-import ua.rd.pizza_service.infrastructure.PostCreate;
+import javax.annotation.PostConstruct;
 
+import org.springframework.stereotype.Repository;
+
+import ua.rd.pizza_service.domain.Pizza;
+
+@Repository
 public class InMemoryPizzaRepository implements PizzaRepository{
 
 	private Map<Integer, Pizza> pizzas = new HashMap<>();
@@ -13,7 +17,8 @@ public class InMemoryPizzaRepository implements PizzaRepository{
 	public InMemoryPizzaRepository() {
 	}
 
-	@PostCreate
+	//@PostCreate
+	@PostConstruct	
 	public void init() {
 		
 		pizzas.put(0,  new Pizza(0, "name1", 1.5, Pizza.PizzaType.MEAT));

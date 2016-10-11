@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ua.rd.pizza_service.domain.Customer;
 import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.services.OrderService;
 
@@ -26,10 +27,10 @@ public class SpringAppRunner {
 		
 
 		OrderService orderService = (OrderService)appContext.getBean("orderService");
-		Order order = orderService.placeNewOrder(null,  2 , 3);
+		//((SimpleOrderService)orderService).setContext(appContext);
+		Order order = orderService.placeNewOrder(new Customer(),  2 , 3);
 		
 		System.out.println(order);
-		
 		
 		repoContext.close();
 		appContext.close();

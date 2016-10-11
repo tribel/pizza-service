@@ -1,7 +1,17 @@
 package ua.rd.pizza_service.domain;
 
+import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
 public class Order {
 
 	private static final double ACCUMULATIVE_CART_DISCOUNT = 0.1;
@@ -16,6 +26,34 @@ public class Order {
 	public enum Status {
 		NEW, IN_PROGRSS, DONE, CANCELED;
 		
+		private enum Transition {
+			FROM_NEW(NEW, IN_PROGRSS, CANCELED),
+			FROM_IN_PROGRSS(IN_PROGRSS, CANCELED, DONE),
+			FROM_CANCEL(CANCELED),
+			FROM_DONE(DONE);
+			
+			Status from;
+			EnumSet<Status> toStatuses;
+			
+			private Transition(Status from, Status... to) {
+				this.from = from;
+				toStatuses = EnumSet.noneOf(Status.class);
+				toStatuses.addAll(Arrays.asList(to));
+			}
+			
+			static final Map<Status, Set<Status>> transitions = 
+					new EnumMap<>(Status.class);
+			
+			static {
+				for(Transition t: Transition.values()) {
+					transitions.put(t.from, EnumSet.copyOf(t.toStatuses));
+				}
+			}
+		}
+		
+		public boolean canChangeTo(Status status) {
+			return Transition.transitions.get(this).contains(status);
+		}
 	}
 
 	public Order() {
@@ -62,6 +100,9 @@ public class Order {
 	}
 	
 	public void setStatus(Status status) {
+		if(!this.status.canChangeTo(status)) {
+			throw new IllegalArgumentException("Changing status invalid");
+		}
 		this.status = status;
 	}
 

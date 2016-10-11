@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="ua.rd.pizza_service.services"/>
+	<context:component-scan base-package="ua.rd.pizza_service.domain"/>    
+
+<!-- 
+	<bean name="order" class="ua.rd.pizza_service.domain.Order" scope="prototype" />
+ -->
+
+<!-- 
+	<bean name="pizzaService" class="ua.rd.pizza_service.services.SimplePizzaService"
+		autowire="constructor" /> -->
 
 
-
-
-	<bean name="pizzaService" class="ua.rd.pizza_service.services.SimplePizzaService">
-		<constructor-arg ref="pizzaRepository"></constructor-arg>
-	</bean>
+	<bean class="ua.rd.pizza_service.infrastructure.BenchmarkBeanPostProcessor" />
 
 	<bean name="orderService" class="ua.rd.pizza_service.services.SimpleOrderService">
-		<constructor-arg ref="pizzaService" />
-		<constructor-arg ref="orderResitory" />
+		<lookup-method name="createNewOrder" bean="order" />
+
 	</bean>
-	
+
+
+
 
 </beans>
