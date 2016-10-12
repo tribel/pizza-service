@@ -26,7 +26,7 @@ public class OrderTest {
 	@Test
 	public void calculateOrderSumPriceTest() {
 		Order order = new Order(new Customer(), pizzaList);
-		assertEquals(9.5, order.calculateOrderSumPrice(), 0.01);
+		assertEquals(9.5, order.calculateOrderPriceWithDiscount(), 0.01);
 	
 		
 	}
@@ -37,7 +37,7 @@ public class OrderTest {
 		pizzaList.add(new Pizza(3, "name4", 2.0, PizzaType.MEAT));
 		pizzaList.add(new Pizza(5, "name4", 6.0, PizzaType.MEAT));
 		
-		assertEquals(15.7, order.calculateOrderSumPrice(), 0.01);
+		assertEquals(15.7, order.calculateOrderPriceWithDiscount(), 0.01);
 	}
 	
 	@Test
@@ -54,11 +54,12 @@ public class OrderTest {
 		//9.5 on accumulative card
 		//25 - new order price 
 		// so 25 - 9.5 * 0.1 = 24.05
-		assertEquals(nextOrder.calculateOrderSumPrice(), 24.05, 0.01);
+		assertEquals(nextOrder.calculateOrderPriceWithDiscount(), 24.05, 0.01);
 	}
 	
 	@Test
 	public void calculateOrderSumWithAccumulativeCardSecondCase() {
+
 		Customer customer = new Customer(0, "customer", new CustomerAddress(), new AccumulativeCard());
 		List<Pizza> tmpPizzaList = new ArrayList<>();
 		tmpPizzaList.add(new Pizza(0, "name1", 15.0, PizzaType.MEAT));
@@ -70,7 +71,7 @@ public class OrderTest {
 		tmpPizzaList.clear();
 		tmpPizzaList.add(new Pizza(4, "name", 5.0, PizzaType.VEGETERIAN));
 		Order newOrder = new Order(customer, tmpPizzaList);
-		assertEquals(newOrder.calculateOrderSumPrice(), 3.5, 0.01);
+		assertEquals(newOrder.calculateOrderPriceWithDiscount(), 3.5, 0.01);
 		
 	}
 	

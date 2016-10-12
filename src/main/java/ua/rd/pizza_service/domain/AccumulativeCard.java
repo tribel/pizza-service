@@ -16,5 +16,6 @@ public class AccumulativeCard {
 
 	public void setAccumulativeSum(double accumulativeSum) {
 		this.accumulativeSum += accumulativeSum;
+		System.out.println("ACUMAUL " + accumulativeSum);
 	}
 }

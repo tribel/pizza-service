@@ -1,11 +1,10 @@
 package ua.rd.pizza_service.services;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import ua.rd.pizza_service.domain.Customer;
 import ua.rd.pizza_service.domain.Order;
@@ -14,11 +13,10 @@ import ua.rd.pizza_service.infrastructure.Benchmark;
 import ua.rd.pizza_service.repository.OrderRepository;
 
 //@Service
-public class SimpleOrderService implements OrderService, ApplicationContextAware{
+public class SimpleOrderService implements OrderService{
 
 	private PizzaService pzService;
 	private OrderRepository odRepository;
-	private ApplicationContext context;
 	
 	@Autowired
 	public SimpleOrderService(PizzaService pzService, OrderRepository odRepository) {
@@ -26,12 +24,8 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
 		this.odRepository = odRepository;
 	}
 	
-	@Override
-	public void setApplicationContext(ApplicationContext context) {
-		this.context = context;
-	}
 
-	@Benchmark
+	@Benchmark(enabled = false)
 	@Override
 	public Order placeNewOrder(Customer customer, Integer... pizzasID) {
 		
@@ -46,14 +40,11 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
 		 newOrder.setPizzaList(tmpPizzas);
 		 
 		 saveOrder(newOrder);
-		 calculateOrderSum(newOrder);
 		return newOrder;
 	}
 	
-	@Benchmark
 	protected Order createNewOrder() {
-		return (Order)context.getBean("order");
-		//throw new IllegalStateException("Container can`t");
+		throw new IllegalStateException("Container can`t");
 	}
 
 	private Pizza getPizzaById(int id) {
@@ -64,10 +55,17 @@ public class SimpleOrderService implements OrderService, ApplicationContextAware
 		return odRepository.saveOrder(order);
 	}
 
-	@Benchmark
+	@Benchmark(enabled = false)
 	@Override
 	public double calculateOrderSum(Order order) {
-		return order.calculateOrderSumPrice();
+		double returnValue = order.calculateOrderPriceWithDiscount();
+		order.putOrderPriceToAccumulativeCard();
+		return returnValue;
+	}
+	
+	@Override
+	public double calculatePureOrderSum(Order order) {
+		return order.pureOrderSum();
 	}
 
 	

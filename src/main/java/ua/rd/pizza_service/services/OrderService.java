@@ -11,4 +11,6 @@ public interface OrderService {
 	Order placeNewOrder(Customer customer, Integer ... pizzasID);
 	
 	double calculateOrderSum(Order order);
+	
+	double calculatePureOrderSum(Order order);
 }

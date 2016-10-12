@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import ua.rd.pizza_service.domain.AccumulativeCard;
 import ua.rd.pizza_service.domain.Customer;
 import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.services.OrderService;
@@ -28,8 +29,15 @@ public class SpringAppRunner {
 
 		OrderService orderService = (OrderService)appContext.getBean("orderService");
 		//((SimpleOrderService)orderService).setContext(appContext);
-		Order order = orderService.placeNewOrder(new Customer(),  2 , 3);
+		Customer customer = new Customer(1, "name", null, new AccumulativeCard());
+		Order order = orderService.placeNewOrder(customer, 0 ,1,  2 , 3, 4);
+		System.out.println(orderService.calculateOrderSum(order));
+		System.out.println(orderService.calculatePureOrderSum(order));
+		System.out.println(order);
 		
+		order = orderService.placeNewOrder(customer, 1, 2);
+		System.out.println(orderService.calculateOrderSum(order));
+		System.out.println(orderService.calculatePureOrderSum(order));
 		System.out.println(order);
 		
 		repoContext.close();

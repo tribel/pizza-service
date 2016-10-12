@@ -7,22 +7,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import ua.rd.pizza_service.domain.discount.DiscountType;
 
-@Component
-@Scope("prototype")
+
+
+//@Component
+//@Scope("prototype")
 public class Order {
 
-	private static final double ACCUMULATIVE_CART_DISCOUNT = 0.1;
-
-	private static final double PIZZA_DISCOUNT = 0.3;
-	
 	private long id;
 	private Customer customer;
 	private List<Pizza> pizzaList;
 	private Status status;
+	private List<DiscountType> discountList;
 	
+
 	public enum Status {
 		NEW, IN_PROGRSS, DONE, CANCELED;
 		
@@ -59,6 +58,11 @@ public class Order {
 	public Order() {
 	}
 
+	public Order(List<DiscountType> list) {
+		this.discountList = list;
+	}
+	
+	
 	public Order(Customer customer, List<Pizza> pizzaList) {
 		super();
 		this.customer = customer;
@@ -110,46 +114,36 @@ public class Order {
 		this.status = Status.CANCELED;
 	}
 	
+	
+	public void setDiscountList(List<DiscountType> discountList) {
+		this.discountList = discountList;
+	}
+	
 	public void putOrderPriceToAccumulativeCard() {
 		if(isAccumulativeCartExist())
-			this.customer.getCard().setAccumulativeSum(this.calculateOrderSumPrice());
+			this.customer.getCard().setAccumulativeSum(this.calculateOrderPriceWithDiscount());
+		customer.getCard().getAccumulativeSum();
 	}
 	
 
-	public double calculateOrderSumPrice() {
-		double resultPrice = 0.0;
+	public double calculateOrderPriceWithDiscount() {
+		double pureOrderSum = pureOrderSum();
 		
-		if(pizzaList.size() > 4) {
-			double discountAmount = pizzaList.stream()
-								.mapToDouble(Pizza::getPrice)
-								.max().getAsDouble() * PIZZA_DISCOUNT;
-			
-			resultPrice = pureOrderSum() - discountAmount;
-		} else {
-			resultPrice = pureOrderSum();
+		for(DiscountType d: discountList) {
+			if(d.isАpplicable(this)) {
+				pureOrderSum -= d.doDiscount(this);
+			}
 		}
 		
-		if(isAccumulativeCartExist()) 
-			return resultPrice - accumulativeCardDiscont(resultPrice);
-		else 
-			return resultPrice;
+		return pureOrderSum;
 	}
 	
 	private boolean isAccumulativeCartExist() {
 		return (customer.getCard() != null) ? true : false;
 	}
+
 	
-	private double accumulativeCardDiscont(double sum) {
-		double defaultDiscount = customer.getCard().getAccumulativeSum() * ACCUMULATIVE_CART_DISCOUNT;
-		
-		if(defaultDiscount > (sum * 0.3)) {
-			return sum * 0.3;
-		} else {
-			return defaultDiscount;
-		}
-	}
-	
-	private double pureOrderSum() {
+	public double pureOrderSum() {
 		return pizzaList.stream().mapToDouble(Pizza::getPrice).sum();
 	}
 	
