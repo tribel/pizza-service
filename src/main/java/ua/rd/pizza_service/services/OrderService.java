@@ -13,4 +13,6 @@ public interface OrderService {
 	double calculateOrderSum(Order order);
 	
 	double calculatePureOrderSum(Order order);
+
+	void putOrderPriceToAccumulativeCard(Order order);
 }

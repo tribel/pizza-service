@@ -58,14 +58,18 @@ public class SimpleOrderService implements OrderService{
 	@Benchmark(enabled = false)
 	@Override
 	public double calculateOrderSum(Order order) {
-		double returnValue = order.calculateOrderPriceWithDiscount();
-		order.putOrderPriceToAccumulativeCard();
-		return returnValue;
+		return  order.calculateOrderPriceWithDiscount();
 	}
 	
 	@Override
 	public double calculatePureOrderSum(Order order) {
 		return order.pureOrderSum();
+	}
+
+
+	@Override
+	public void putOrderPriceToAccumulativeCard(Order order) {
+		order.putOrderPriceToAccumulativeCard();
 	}
 
 	

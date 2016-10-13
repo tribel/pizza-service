@@ -11,8 +11,8 @@
     <context:component-scan base-package="ua.rd.pizza_service.repository"/>
     
 	<!-- bean definitions here -->
-	<!-- <bean name="pizzaRepository" class="ua.rd.pizza_service.repository.InMemoryPizzaRepository"
-	init-method="init"></bean>
+	<!--  <bean name="pizzaRepository" class="ua.rd.pizza_service.repository.InMemoryPizzaRepository"
+		init-method="init"></bean> 
 	
 	<bean name="orderResitory" class="ua.rd.pizza_service.repository.InMemoryOrderRepository"/> -->
 	

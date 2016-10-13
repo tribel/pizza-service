@@ -8,13 +8,20 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:annotation-config />
 	<context:component-scan base-package="ua.rd.pizza_service.services"/>
 	<context:component-scan base-package="ua.rd.pizza_service.domain"/>    
 
-<!-- 
-	<bean name="order" class="ua.rd.pizza_service.domain.Order" scope="prototype" />
- -->
+
+	<bean name="order" class="ua.rd.pizza_service.domain.Order" scope="prototype" >
+		<property name="discountList" >
+			 <list value-type="ua.rd.pizza_service.domain.discount.DiscountType">
+				<ref bean = "maxPricePizzaDiscount"/>
+				<ref bean = "accumulativeCardDiscount"/>
+			</list>	
+		</property>
+	</bean>
+	
+
 
 <!-- 
 	<bean name="pizzaService" class="ua.rd.pizza_service.services.SimplePizzaService"

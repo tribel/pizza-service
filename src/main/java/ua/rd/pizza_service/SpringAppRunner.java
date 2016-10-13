@@ -28,16 +28,18 @@ public class SpringAppRunner {
 		
 
 		OrderService orderService = (OrderService)appContext.getBean("orderService");
-		//((SimpleOrderService)orderService).setContext(appContext);
+		
 		Customer customer = new Customer(1, "name", null, new AccumulativeCard());
 		Order order = orderService.placeNewOrder(customer, 0 ,1,  2 , 3, 4);
 		System.out.println(orderService.calculateOrderSum(order));
 		System.out.println(orderService.calculatePureOrderSum(order));
+		orderService.putOrderPriceToAccumulativeCard(order);
 		System.out.println(order);
 		
 		order = orderService.placeNewOrder(customer, 1, 2);
 		System.out.println(orderService.calculateOrderSum(order));
 		System.out.println(orderService.calculatePureOrderSum(order));
+		orderService.putOrderPriceToAccumulativeCard(order);
 		System.out.println(order);
 		
 		repoContext.close();

@@ -3,6 +3,7 @@ package ua.rd.pizza_service.service;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -34,14 +35,15 @@ public class SimpleOrderServiceTest {
 	
 	@Test
 	public void testPlaceNewOrder() {
-		pizzaService = mock(PizzaService.class);
-		orderRepository = mock(OrderRepository.class);
+
 		
 		when(pizzaService.getPizzaByID(anyInt())).thenReturn(new Pizza(0, "name", 10.0, PizzaType.MEAT))
 												 .thenReturn(new Pizza(1, "name1", 15.0, PizzaType.SEA));
 	
 
-		orderService = new SimpleOrderService(pizzaService, orderRepository);
+		spy(orderService = new SimpleOrderService(pizzaService, orderRepository));
+		
+		
 		Order tmpOrder = orderService.placeNewOrder(new Customer(1, "name", null, null), 1 , 2);
 		List<Pizza> assertList = new ArrayList<>();
 		assertList.add(new Pizza(0, "name", 10.0, PizzaType.MEAT));
