@@ -25,7 +25,7 @@ public class SimpleOrderService implements OrderService{
 	}
 	
 
-	@Benchmark(enabled = false)
+	@Benchmark(enabled = true)
 	@Override
 	public Order placeNewOrder(Customer customer, Integer... pizzasID) {
 		

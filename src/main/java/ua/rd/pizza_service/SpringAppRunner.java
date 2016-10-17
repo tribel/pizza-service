@@ -31,17 +31,10 @@ public class SpringAppRunner {
 		
 		Customer customer = new Customer(1, "name", null, new AccumulativeCard());
 		Order order = orderService.placeNewOrder(customer, 0 ,1,  2 , 3, 4);
-		System.out.println(orderService.calculateOrderSum(order));
-		System.out.println(orderService.calculatePureOrderSum(order));
-		orderService.putOrderPriceToAccumulativeCard(order);
-		System.out.println(order);
+		orderService.placeNewOrder(customer, 0, 1 , 2, 3);
 		
-		order = orderService.placeNewOrder(customer, 1, 2);
-		System.out.println(orderService.calculateOrderSum(order));
-		System.out.println(orderService.calculatePureOrderSum(order));
-		orderService.putOrderPriceToAccumulativeCard(order);
-		System.out.println(order);
 		
+
 		repoContext.close();
 		appContext.close();
 	}
