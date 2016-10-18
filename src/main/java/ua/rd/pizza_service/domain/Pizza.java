@@ -1,7 +1,12 @@
 package ua.rd.pizza_service.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Pizza {
 
+	@Id
 	private int id;
 	private String name;
 	private double price;

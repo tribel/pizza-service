@@ -17,20 +17,21 @@ import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.domain.Pizza;
 import ua.rd.pizza_service.domain.Pizza.PizzaType;
 import ua.rd.pizza_service.repository.OrderRepository;
-import ua.rd.pizza_service.services.OrderService;
 import ua.rd.pizza_service.services.PizzaService;
 import ua.rd.pizza_service.services.SimpleOrderService;
 
 public class SimpleOrderServiceTest {
 
-	OrderService orderService;
+	SimpleOrderService orderService;
 	PizzaService pizzaService;
 	OrderRepository orderRepository;
+
 	
 	@Before
 	public void initTest() {
 		pizzaService = mock(PizzaService.class);
 		orderRepository = mock(OrderRepository.class);
+
 	}
 	
 	@Test
@@ -41,7 +42,9 @@ public class SimpleOrderServiceTest {
 												 .thenReturn(new Pizza(1, "name1", 15.0, PizzaType.SEA));
 	
 
-		spy(orderService = new SimpleOrderService(pizzaService, orderRepository));
+		orderService = spy(orderService = new SimpleOrderService(pizzaService, orderRepository));
+
+		
 		
 		
 		Order tmpOrder = orderService.placeNewOrder(new Customer(1, "name", null, null), 1 , 2);

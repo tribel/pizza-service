@@ -55,7 +55,6 @@ public class SimpleOrderService implements OrderService{
 		return odRepository.saveOrder(order);
 	}
 
-	@Benchmark(enabled = false)
 	@Override
 	public double calculateOrderSum(Order order) {
 		return  order.calculateOrderPriceWithDiscount();
