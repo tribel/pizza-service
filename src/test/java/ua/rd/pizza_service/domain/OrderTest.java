@@ -36,21 +36,22 @@ public class OrderTest {
 	public void calculateOrderSumPriceTest() {
 		Order order = new Order(new Customer(), pizzaList);
 		order.setDiscountList(discountList);
-		
 		assertEquals(9.5, order.calculateOrderPriceWithDiscount(), 0.01);
-	
+		order.putOrderPriceToAccumulativeCard();
 		
 	}
 	
 	@Test
 	public void calculateOrderSumPriceDiscontTest() {
+		System.out.println("START");
 		Order order = new Order(new Customer(), pizzaList);
+		order.addPizza(new Pizza(1, "name2", 2.0, PizzaType.SEA));
+		order.addPizza(new Pizza(5, "name4", 6.0, PizzaType.MEAT));
+		
 		order.setDiscountList(discountList);
-		
-		pizzaList.add(new Pizza(3, "name4", 2.0, PizzaType.MEAT));
-		pizzaList.add(new Pizza(5, "name4", 6.0, PizzaType.MEAT));
-		
+		System.out.println("END");
 		assertEquals(15.7, order.calculateOrderPriceWithDiscount(), 0.01);
+	
 	}
 	
 	@Test

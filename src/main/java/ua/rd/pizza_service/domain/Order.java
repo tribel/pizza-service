@@ -1,8 +1,10 @@
 package ua.rd.pizza_service.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +19,7 @@ public class Order {
 
 	private long id;
 	private Customer customer;
-	private List<Pizza> pizzaList;
+	private Map<Pizza, Integer> pizzaMap;
 	private Status status;
 	private List<DiscountType> discountList;
 	
@@ -66,7 +68,7 @@ public class Order {
 	public Order(Customer customer, List<Pizza> pizzaList) {
 		super();
 		this.customer = customer;
-		this.pizzaList = pizzaList;
+		setPizzaList(pizzaList);
 		this.status = Status.NEW;
 	}
 
@@ -80,11 +82,20 @@ public class Order {
 	}
 
 	public List<Pizza> getPizzaList() {
-		return pizzaList;
+		List<Pizza> returnList = new ArrayList<>();
+		for(Map.Entry<Pizza, Integer> entr: this.pizzaMap.entrySet()) {
+			for(int i = 0; i < entr.getValue(); i++) {
+				returnList.add(entr.getKey());
+			}	
+		}
+		return returnList;
 	}
 
-	public void setPizzaList(List<Pizza> pizzaList) {
-		this.pizzaList = pizzaList;
+	public void setPizzaList(List<Pizza> list) {
+		this.pizzaMap = new HashMap<>(list.size());
+		for(Pizza p: list) {
+			addPizza(p);
+		}
 	}
 
 	public Customer getCustomer() {
@@ -96,9 +107,10 @@ public class Order {
 	}
 
 	public void addPizza(Pizza pizza) {
-		pizzaList.add(pizza);
+		Integer value  = pizzaMap.get(pizza);
+		pizzaMap.put(pizza, (value == null) ? 1: value + 1);
 	}
-	
+
 	public Status getStatus() {
 		return status;
 	}
@@ -122,7 +134,7 @@ public class Order {
 	public void putOrderPriceToAccumulativeCard() {
 		if(isAccumulativeCartExist())
 			this.customer.getCard().setAccumulativeSum(this.calculateOrderPriceWithDiscount());
-		customer.getCard().getAccumulativeSum();
+
 	}
 	
 
@@ -144,12 +156,16 @@ public class Order {
 
 	
 	public double pureOrderSum() {
-		return pizzaList.stream().mapToDouble(Pizza::getPrice).sum();
+		double sumResult = 0.0;
+		for(Map.Entry<Pizza, Integer> entry: pizzaMap.entrySet()) {
+			sumResult += entry.getKey().getPrice() * entry.getValue();
+		}
+		return sumResult;
 	}
 	
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", customer=" + customer + ", pizzaList=" + pizzaList + "]";
+		return "Order [id=" + id + ", customer=" + customer + ", pizzaList=" + pizzaMap + "]";
 	}
 	
 	
