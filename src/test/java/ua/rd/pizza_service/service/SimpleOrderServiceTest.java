@@ -47,13 +47,13 @@ public class SimpleOrderServiceTest {
 		
 		
 		
-		Order tmpOrder = orderService.placeNewOrder(new Customer(1, "name", null, null), 1 , 2);
+		Order tmpOrder = orderService.placeNewOrder(new Customer(1L, "name", null, null), 1 , 2);
 		List<Pizza> assertList = new ArrayList<>();
 		assertList.add(new Pizza(0, "name", 10.0, PizzaType.MEAT));
 		assertList.add(new Pizza(1, "name1", 15.0, PizzaType.SEA));
 		
 		assertEquals(tmpOrder.getPizzaList(), assertList);
-		assertEquals(tmpOrder.getCustomer(), new Customer(1, "name", null, null));
+		assertEquals(tmpOrder.getCustomer(), new Customer(1L, "name", null, null));
 		
 	}
 

@@ -1,15 +1,24 @@
 package ua.rd.pizza_service.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Pizza {
 
 	@Id
+	@SequenceGenerator(allocationSize = 10, name = "PizzaSEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "PizzaSEQ")
 	private int id;
 	private String name;
 	private double price;
+	
+	@Enumerated(EnumType.STRING)
 	private PizzaType pizzaType;
 
 	public enum PizzaType {
@@ -20,6 +29,12 @@ public class Pizza {
 
 	public Pizza(int id, String name, double price, PizzaType pizzaType) {
 		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.pizzaType = pizzaType;
+	}
+	
+	public Pizza(String name, double price, PizzaType pizzaType) {
 		this.name = name;
 		this.price = price;
 		this.pizzaType = pizzaType;

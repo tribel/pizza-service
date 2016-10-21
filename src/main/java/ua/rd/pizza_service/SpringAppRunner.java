@@ -29,7 +29,7 @@ public class SpringAppRunner {
 
 		OrderService orderService = (OrderService)appContext.getBean("orderService");
 		
-		Customer customer = new Customer(1, "name", null, new AccumulativeCard());
+		Customer customer = new Customer(1L, "name", null, new AccumulativeCard());
 		Order order = orderService.placeNewOrder(customer, 0 ,1,  2 , 3, 4);
 		orderService.placeNewOrder(customer, 0, 1 , 2, 3);
 		

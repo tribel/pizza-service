@@ -9,18 +9,53 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import ua.rd.pizza_service.domain.discount.DiscountType;
 
 
 
 //@Component
 //@Scope("prototype")
+@Entity
+@Table(name = "orders")
 public class Order {
-
-	private long id;
+	
+	@Id
+	@SequenceGenerator(allocationSize = 10, name = "OrderSEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "OrderSEQ")
+	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "customer_id" )
 	private Customer customer;
+	
+	@ElementCollection
+	@CollectionTable(name = "orders_pizzas", joinColumns = @JoinColumn(name = "order_id"))
+	@MapKeyJoinColumn(name = "pizza_id")
+	@Column(name = "pizza_count")
 	private Map<Pizza, Integer> pizzaMap;
+	
+
+	@Enumerated(EnumType.STRING)
 	private Status status;
+	
+	@Transient
 	private List<DiscountType> discountList;
 	
 
@@ -73,12 +108,20 @@ public class Order {
 	}
 
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Map<Pizza, Integer> getPizzaMap() {
+		return pizzaMap;
+	}
+	
+	public void setPizzaMap(Map<Pizza, Integer> pizzaMap) {
+		this.pizzaMap = pizzaMap;
 	}
 
 	public List<Pizza> getPizzaList() {

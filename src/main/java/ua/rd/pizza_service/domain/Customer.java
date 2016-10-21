@@ -1,16 +1,40 @@
 package ua.rd.pizza_service.domain;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
+@Entity
 public class Customer {
 
-	private long id;
+	@Id
+	@SequenceGenerator(allocationSize = 10, name = "CustomerSEQ")
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CustomerSEQ")
+	private Long id;
 	private String name;
+	
+	@JoinColumn(name = "adress_id")
+	@OneToOne
 	private CustomerAddress address;
+	
+	@JoinColumn(name = "card_id")
+	@OneToOne
 	private AccumulativeCard card;
 
+	@OneToMany(mappedBy = "customer")
+	private List<Order> ordersList;
+	
 	public Customer() {
 	}
 
-	public Customer(long id, String name, CustomerAddress address, AccumulativeCard card) {
+	public Customer(Long id, String name, CustomerAddress address, AccumulativeCard card) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -18,12 +42,19 @@ public class Customer {
 		this.card = card;
 	}
 
+	public Customer(String name, CustomerAddress address, AccumulativeCard card) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.card = card;
+	}
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

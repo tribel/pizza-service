@@ -56,7 +56,7 @@ public class OrderTest {
 	
 	@Test
 	public void calculateOrderSumWithAccumulativeCard() {
-		Customer customer = new Customer(0, "name1", new CustomerAddress(), new AccumulativeCard());
+		Customer customer = new Customer(0L, "name1", new CustomerAddress(), new AccumulativeCard());
 		Order order = new Order(customer, pizzaList);
 		order.setDiscountList(discountList);
 		order.putOrderPriceToAccumulativeCard();
@@ -75,7 +75,7 @@ public class OrderTest {
 	@Test
 	public void calculateOrderSumWithAccumulativeCardSecondCase() {
 
-		Customer customer = new Customer(0, "customer", new CustomerAddress(), new AccumulativeCard());
+		Customer customer = new Customer(0L, "customer", new CustomerAddress(), new AccumulativeCard());
 		List<Pizza> tmpPizzaList = new ArrayList<>();
 		tmpPizzaList.add(new Pizza(0, "name1", 15.0, PizzaType.MEAT));
 		tmpPizzaList.add(new Pizza(1, "name2", 25.0, PizzaType.MEAT));
