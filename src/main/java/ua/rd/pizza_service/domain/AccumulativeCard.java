@@ -11,8 +11,7 @@ import javax.persistence.SequenceGenerator;
 public class AccumulativeCard {
 	
 	@Id
-	@SequenceGenerator(allocationSize = 10, name = "CardSEQ")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CardSEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private double accumulativeSum;
 	

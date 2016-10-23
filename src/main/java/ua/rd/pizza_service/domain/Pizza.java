@@ -1,19 +1,23 @@
 package ua.rd.pizza_service.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 
 @Entity
+@SequenceGenerator(allocationSize = 10, name = "PizzaSEQ")
 public class Pizza {
 
 	@Id
-	@SequenceGenerator(allocationSize = 10, name = "PizzaSEQ")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "PizzaSEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String name;
 	private double price;
@@ -21,6 +25,8 @@ public class Pizza {
 	@Enumerated(EnumType.STRING)
 	private PizzaType pizzaType;
 
+
+	
 	public enum PizzaType {
 		VEGETERIAN, SEA, MEAT;
 	}

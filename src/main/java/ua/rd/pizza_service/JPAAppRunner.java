@@ -33,8 +33,9 @@ public class JPAAppRunner {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		em.persist(order);
-	//	em.persist(new Pizza("test", 21, PizzaType.VEGETERIAN));
-		//em.persist(new Pizza("testq1", 10.5, PizzaType.SEA));
+		/*em.persist(new Pizza("Bawarian", 5.5, PizzaType.MEAT));
+		em.persist(new Pizza("test", 21, PizzaType.VEGETERIAN));
+		em.persist(new Pizza("testq1", 10.5, PizzaType.SEA));*/
 	//	em.merge(null);
 		et.commit();
 	//	em.clear();

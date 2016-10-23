@@ -2,6 +2,7 @@ package ua.rd.pizza_service.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,17 +16,16 @@ import javax.persistence.SequenceGenerator;
 public class Customer {
 
 	@Id
-	@SequenceGenerator(allocationSize = 10, name = "CustomerSEQ")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "CustomerSEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private String name;
 	
 	@JoinColumn(name = "adress_id")
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private CustomerAddress address;
 	
 	@JoinColumn(name = "card_id")
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private AccumulativeCard card;
 
 	@OneToMany(mappedBy = "customer")

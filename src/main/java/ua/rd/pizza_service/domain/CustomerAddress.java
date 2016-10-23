@@ -11,8 +11,7 @@ import javax.persistence.SequenceGenerator;
 public class CustomerAddress {
 	
 	@Id
-	@SequenceGenerator(allocationSize = 10, name = "AddressSEQ")
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "AddressSEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private String sreet;
 	private String building;

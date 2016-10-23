@@ -39,6 +39,7 @@ public class BenchmarkBeanPostProcessor implements BeanPostProcessor {
 	}
 
 	@Override
+	
 	public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException {
 		Method[] methods = bean.getClass().getMethods();
 		for(Method m: methods) {
