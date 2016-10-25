@@ -24,25 +24,27 @@ public class JPAAppRunner {
 		EntityManager em = emf.createEntityManager();  
 		
 		List<Pizza> pizzas = new ArrayList<>();
-		pizzas.add(new Pizza("Bawarian", 5.5, PizzaType.MEAT));
-		pizzas.add(new Pizza("test", 21, PizzaType.VEGETERIAN));
-		pizzas.add(new Pizza("testq1", 10.5, PizzaType.SEA));
+		Pizza pizza1 = new Pizza("Bawarian", 5.5, PizzaType.MEAT);
+		Pizza pizza2 = new Pizza("test", 21, PizzaType.VEGETERIAN);
+		Pizza pizza3 = new Pizza("testq1", 10.5, PizzaType.SEA);
+		pizzas.add(pizza1);
+		pizzas.add(pizza2);
+		pizzas.add(pizza3);
 		
 		Order order = new Order(new Customer("test", new CustomerAddress("test", "12", 23), 
 				new AccumulativeCard()	), pizzas);
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-		em.persist(order);
-		/*em.persist(new Pizza("Bawarian", 5.5, PizzaType.MEAT));
-		em.persist(new Pizza("test", 21, PizzaType.VEGETERIAN));
-		em.persist(new Pizza("testq1", 10.5, PizzaType.SEA));*/
-	//	em.merge(null);
+/*		em.persist(pizza1);
+		em.persist(pizza2);
+		em.persist(pizza3);
+		em.persist(order);*/
+
+		System.out.println(em.find(Pizza.class, 140));
 		et.commit();
 	//	em.clear();
 		
-		//Pizza pizza2 = em.find(Pizza.class, 2);
-		//System.out.println(pizza == pizza2);
-		//System.out.println(pizza2);
+
 		
 		em.close();
 		emf.close();

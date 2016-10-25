@@ -20,17 +20,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyClass;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.GenericGenerator;
 
 import ua.rd.pizza_service.domain.discount.DiscountType;
 
@@ -46,16 +40,14 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)  
 	@JoinColumn(name = "customer_id" )
 	private Customer customer;
 	
 	@ElementCollection
 	@CollectionTable(name = "orders_pizzas", joinColumns = @JoinColumn(name = "order_id"))
-	@MapKeyClass(Pizza.class)
-	@MapKeyColumn(name = "pizza_id")
+	@MapKeyJoinColumn(name = "pizza_id")
 	@Column(name = "pizza_count")
-	@Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	private Map<Pizza, Integer> pizzaMap;
 	
 

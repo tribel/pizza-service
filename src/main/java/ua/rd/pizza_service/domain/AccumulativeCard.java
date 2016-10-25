@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 @Entity
 public class AccumulativeCard {
@@ -15,7 +14,7 @@ public class AccumulativeCard {
 	private Long id;
 	private double accumulativeSum;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "card")
 	private Customer customer;
 
 	public AccumulativeCard() {	}

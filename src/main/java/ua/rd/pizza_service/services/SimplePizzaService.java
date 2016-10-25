@@ -19,7 +19,7 @@ public class SimplePizzaService implements PizzaService{
 
 	@Override
 	public Pizza getPizzaByID(Integer id) {
-		return pzRepozitory.getPizzaByID(id);
+		return pzRepozitory.find(id);
 	}
 
 }

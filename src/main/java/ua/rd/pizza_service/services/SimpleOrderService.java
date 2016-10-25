@@ -44,7 +44,7 @@ public class SimpleOrderService implements OrderService{
 	}
 	
 	protected Order createNewOrder() {
-		throw new IllegalStateException("Container can`t");
+		throw new IllegalStateException("Container can`t find");
 	}
 
 	private Pizza getPizzaById(int id) {

@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 @Entity
 public class CustomerAddress {
@@ -17,7 +16,7 @@ public class CustomerAddress {
 	private String building;
 	private Integer flat;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "address")
 	private Customer customer;
 
 	public CustomerAddress() {}

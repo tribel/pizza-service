@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ua.rd.pizza_service.domain.Customer;
@@ -35,6 +36,7 @@ public class SimpleOrderServiceTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testPlaceNewOrder() {
 
 		

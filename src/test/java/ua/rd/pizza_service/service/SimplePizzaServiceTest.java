@@ -20,7 +20,7 @@ public class SimplePizzaServiceTest {
 	@Test
 	public void test() {
 		PizzaRepository repository = mock(PizzaRepository.class);
-		when(repository.getPizzaByID(anyInt())).thenReturn(new Pizza(1, "test", 10.0, PizzaType.MEAT));
+		when(repository.find(anyInt())).thenReturn(new Pizza(1, "test", 10.0, PizzaType.MEAT));
 		
 		pizzaService = new SimplePizzaService(repository);
 		assertEquals(new Pizza(1, "test", 10.0, PizzaType.MEAT), pizzaService.getPizzaByID(10));

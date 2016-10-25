@@ -4,14 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.rd.pizza_service.domain.Pizza;
 
 @Repository
 public class InMemoryPizzaRepository implements PizzaRepository{
 
+	
 	private Map<Integer, Pizza> pizzas = new HashMap<>();
 	
 	public InMemoryPizzaRepository() {
@@ -28,9 +32,17 @@ public class InMemoryPizzaRepository implements PizzaRepository{
 		pizzas.put(4,  new Pizza(4, "name5", 6.0, Pizza.PizzaType.VEGETERIAN));
 	}
 
+
+
+
+	public Pizza save(Pizza pizza) {
+		throw new UnsupportedOperationException("jpa not supported!!!!");
+	}
+
 	@Override
-	public Pizza getPizzaByID(Integer id) {
+	public Pizza find(Integer id) {
 		return pizzas.get(id);
+		
 	}
 	
 	
