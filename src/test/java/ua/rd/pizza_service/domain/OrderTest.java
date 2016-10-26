@@ -66,6 +66,7 @@ public class OrderTest {
 		tmpPizzaList.add(new Pizza(1, "newName2", 15.0, PizzaType.SEA));
 		Order nextOrder = new Order(customer, tmpPizzaList);
 		nextOrder.setDiscountList(discountList);
+		
 		//9.5 on accumulative card
 		//25 - new order price 
 		// so 25 - 9.5 * 0.1 = 24.05

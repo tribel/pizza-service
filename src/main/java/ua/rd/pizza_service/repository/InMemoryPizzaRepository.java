@@ -1,6 +1,7 @@
 package ua.rd.pizza_service.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -43,6 +44,36 @@ public class InMemoryPizzaRepository implements PizzaRepository{
 	public Pizza find(Integer id) {
 		return pizzas.get(id);
 		
+	}
+
+	@Override
+	public void deactivatePizza(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void activatePizza(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Pizza> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pizza> findActivePizza() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pizza> findDeactivePizza() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
