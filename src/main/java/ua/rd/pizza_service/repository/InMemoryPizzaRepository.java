@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.rd.pizza_service.domain.Pizza;
+import ua.rd.pizza_service.domain.Pizza.PizzaType;
 
-@Repository
+
 public class InMemoryPizzaRepository implements PizzaRepository{
 
 	
@@ -65,15 +66,33 @@ public class InMemoryPizzaRepository implements PizzaRepository{
 	}
 
 	@Override
-	public List<Pizza> findActivePizza() {
+	public List<Pizza> findActivePizzaList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Pizza> findDeactivePizza() {
+	public List<Pizza> findDeactivePizzaList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Pizza> findByCatogory(PizzaType category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Pizza> findByPrice(Double minPrice, Double maxPrice) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void update(Pizza pizza) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

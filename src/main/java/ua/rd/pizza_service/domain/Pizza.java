@@ -1,12 +1,15 @@
 package ua.rd.pizza_service.domain;
 
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -17,8 +20,16 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 	private String name;
-	private double price;
+	private Double price;
 	
+	@Lob
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] image;
+	
+	@Enumerated(EnumType.STRING)
+	private PizzaStatus status;
+	
+
 	@Enumerated(EnumType.STRING)
 	private PizzaType pizzaType;
 
@@ -28,20 +39,25 @@ public class Pizza {
 		VEGETERIAN, SEA, MEAT;
 	}
 	
+	public enum PizzaStatus {
+		ACTIVE, INACTIVE;
+	}
+	
 	public Pizza() {}
 
 	public Pizza(int id, String name, double price, PizzaType pizzaType) {
+		this(name, price, pizzaType);
 		this.id = id;
-		this.name = name;
-		this.price = price;
-		this.pizzaType = pizzaType;
 	}
 	
+
 	public Pizza(String name, double price, PizzaType pizzaType) {
 		this.name = name;
 		this.price = price;
 		this.pizzaType = pizzaType;
+		this.status = PizzaStatus.ACTIVE;
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -59,11 +75,11 @@ public class Pizza {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double	 price) {
 		this.price = price;
 	}
 
@@ -74,6 +90,22 @@ public class Pizza {
 
 	public void setPizzaType(PizzaType pizzaType) {
 		this.pizzaType = pizzaType;
+	}
+	
+	public PizzaStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(PizzaStatus status) {
+		this.status = status;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+	
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	@Override

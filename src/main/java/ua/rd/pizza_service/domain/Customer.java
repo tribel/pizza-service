@@ -27,8 +27,8 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	private AccumulativeCard card;
 
-	@OneToMany(mappedBy = "customer")
-	private List<Order> ordersList;
+//	@OneToMany(mappedBy = "customer")
+//	private List<Order> ordersList;
 	
 	public Customer() {
 	}

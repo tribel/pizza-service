@@ -1,5 +1,7 @@
 package ua.rd.pizza_service;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,22 +27,27 @@ public class JPAAppRunner {
 		
 		List<Pizza> pizzas = new ArrayList<>();
 		Pizza pizza1 = new Pizza("Bawarian", 5.5, PizzaType.MEAT);
+		saveImageToPizza(pizza1, "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\hawaii.png");
 		Pizza pizza2 = new Pizza("test", 21, PizzaType.VEGETERIAN);
+		saveImageToPizza(pizza2, "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\papperoni.png");
 		Pizza pizza3 = new Pizza("testq1", 10.5, PizzaType.SEA);
+		saveImageToPizza(pizza3, "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\texas.png");
+		pizza3.setId(3);
 		pizzas.add(pizza1);
 		pizzas.add(pizza2);
 		pizzas.add(pizza3);
 		
-		Order order = new Order(new Customer("test", new CustomerAddress("test", "12", 23), 
-				new AccumulativeCard()	), pizzas);
+		//Order order = new Order(new Customer("test", new CustomerAddress("test", "12", 23), 
+		//		new AccumulativeCard()	), pizzas);
+		
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-/*		em.persist(pizza1);
-		em.persist(pizza2);
-		em.persist(pizza3);
-		em.persist(order);*/
+		//em.persist(pizza1);
+	//	em.persist(pizza2);
+		em.merge(pizza3);
+		//em.persist(order);
 
-		System.out.println(em.find(Pizza.class, 140));
+		//System.out.println(em.find(Pizza.class, 140));
 		et.commit();
 	//	em.clear();
 		
@@ -48,5 +55,26 @@ public class JPAAppRunner {
 		
 		em.close();
 		emf.close();
+	}
+	
+	public static void saveImageToPizza(Pizza pizza, String path) {
+
+		File file = new File(path);
+		byte[] bFile = new byte[(int) file.length()];
+
+		try {
+
+			FileInputStream fileInputStream = new FileInputStream(file);
+			fileInputStream.read(bFile);
+			fileInputStream.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+		
+		pizza.setImage(bFile);
+
 	}
 }
