@@ -44,9 +44,9 @@ public class JPAAppRunner {
 		et.begin();
 		//em.persist(pizza1);
 	//	em.persist(pizza2);
-		em.merge(pizza3);
+		//em.merge(pizza3);
 		//em.persist(order);
-
+		//em.persist(new Customer("customer1", new CustomerAddress("street1", "22", 65), new AccumulativeCard()));
 		//System.out.println(em.find(Pizza.class, 140));
 		et.commit();
 	//	em.clear();

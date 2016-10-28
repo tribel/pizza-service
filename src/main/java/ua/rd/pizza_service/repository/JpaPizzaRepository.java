@@ -15,7 +15,7 @@ import ua.rd.pizza_service.domain.Pizza.PizzaType;
 @Repository("pizzaRepository")
 public class JpaPizzaRepository implements PizzaRepository{
 
-	private static final String SELECT_PIZZA_BY_STATUS = "SELECT p FROM Pizza p WHERE p.status = ?sts";
+	private static final String SELECT_PIZZA_BY_STATUS = "SELECT p FROM Pizza p WHERE p.status = :sts";
 	
 	
 	@PersistenceContext
@@ -41,7 +41,8 @@ public class JpaPizzaRepository implements PizzaRepository{
 	
 	@Override
 	public void deactivatePizza(Integer id) {
-		em.find(Pizza.class, id).setStatus(PizzaStatus.INACTIVE);
+		Pizza pizza = em.find(Pizza.class, id);
+		pizza.setStatus(PizzaStatus.INACTIVE);
 	}
 
 	@Override
@@ -76,7 +77,7 @@ public class JpaPizzaRepository implements PizzaRepository{
 
 	@Override
 	public List<Pizza> findByCatogory(PizzaType category) {
-		List<Pizza> pizzas = em.createQuery("SELECT p FROM Pizza p WHERE p.pizzaType = ?pzTp", 
+		List<Pizza> pizzas = em.createQuery("SELECT p FROM Pizza p WHERE p.pizzaType = :pzTp", 
 				Pizza.class)
 				.setParameter("pzTp", category)
 				.getResultList();
@@ -86,7 +87,7 @@ public class JpaPizzaRepository implements PizzaRepository{
 
 	@Override
 	public List<Pizza> findByPrice(Double minPrice, Double maxPrice) {
-		List<Pizza> pizzas = em.createQuery("SELECT p FROM Pizza p WHERE p.price BETWEEN ?min AND ?max", 
+		List<Pizza> pizzas = em.createQuery("SELECT p FROM Pizza p WHERE p.price BETWEEN :min AND :max", 
 				Pizza.class)
 				.setParameter("min", minPrice)
 				.setParameter("max", maxPrice)

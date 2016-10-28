@@ -1,14 +1,14 @@
 package ua.rd.pizza_service.domain;
 
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -27,18 +27,21 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	private AccumulativeCard card;
 
-//	@OneToMany(mappedBy = "customer")
-//	private List<Order> ordersList;
+	@Enumerated(EnumType.STRING)
+	private CustomerStatus status;
+	
+	public enum CustomerStatus {
+		ACTIVE, DELETED, BANNED; 
+	}
 	
 	public Customer() {
 	}
 
+
 	public Customer(Long id, String name, CustomerAddress address, AccumulativeCard card) {
-		super();
+		this(name, address, card);
 		this.id = id;
-		this.name = name;
-		this.address = address;
-		this.card = card;
+		
 	}
 
 	public Customer(String name, CustomerAddress address, AccumulativeCard card) {
@@ -46,6 +49,7 @@ public class Customer {
 		this.name = name;
 		this.address = address;
 		this.card = card;
+		this.status = CustomerStatus.ACTIVE;
 	}
 
 
@@ -80,6 +84,23 @@ public class Customer {
 	public void setCard(AccumulativeCard card) {
 		this.card = card;
 	}
+	
+	public CustomerStatus getStatus() {
+		return status;
+	}
+	
+	public void setStatus(CustomerStatus status) {
+		this.status = status;
+	}
+
+	
+	
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", address=" + address + ", card=" + card + ", status="
+				+ status + "]";
+	}
+
 
 	@Override
 	public int hashCode() {

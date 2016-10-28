@@ -19,5 +19,7 @@ public interface CustomerRepository {
 	
 	void activateCustomer(Integer id);
 	
-	void deactivateCustomer(Integer id);
+	void deleteCustomer(Integer id);
+	
+	void banCustomer(Integer id);
 }

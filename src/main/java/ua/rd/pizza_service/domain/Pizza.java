@@ -1,6 +1,8 @@
 package ua.rd.pizza_service.domain;
 
 
+import java.util.Arrays;
+
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -108,9 +110,12 @@ public class Pizza {
 		this.image = image;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Pizza [id=" + id + ", name=" + name + ", price=" + price + ", pizzaType=" + pizzaType + "]";
+		return "Pizza [id=" + id + ", name=" + name + ", price=" + price 
+				+ ", status=" + status + ", pizzaType=" + pizzaType + "]";
 	}
 
 	@Override
