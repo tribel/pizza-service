@@ -18,7 +18,7 @@ public class JpaCustomerRepository implements CustomerRepository{
 	private EntityManager em;
 	
 	@Override
-	public Customer find(Integer id) {
+	public Customer find(Long id) {
 		return em.find(Customer.class, id);
 	}
 
@@ -29,12 +29,12 @@ public class JpaCustomerRepository implements CustomerRepository{
 
 	@Override
 	public List<Customer> findAll() {
-		return em.createQuery("SELECT * FROM Customer c", Customer.class).getResultList();
+		return em.createQuery("SELECT c FROM Customer c", Customer.class).getResultList();
 	}
 
 	@Override
 	public List<Customer> findActiveCustomers() {
-		List<Customer> customers = em.createQuery("SELECT * FROM Customer c WHERE c.status = :sts ", 
+		List<Customer> customers = em.createQuery("SELECT c FROM Customer c WHERE c.status = :sts ", 
 						Customer.class)
 				.setParameter("sts", CustomerStatus.ACTIVE)
 				.getResultList();
@@ -44,7 +44,7 @@ public class JpaCustomerRepository implements CustomerRepository{
 
 	@Override
 	public List<Customer> findDeactiveCustomer() {
-		List<Customer> customers = em.createQuery("SELECT * FROM Customer c WHERE c.status != :sts ", 
+		List<Customer> customers = em.createQuery("SELECT c FROM Customer c WHERE c.status != :sts ", 
 				Customer.class)
 			.setParameter("sts", CustomerStatus.ACTIVE)
 			.getResultList();
@@ -53,19 +53,24 @@ public class JpaCustomerRepository implements CustomerRepository{
 	}
 
 	@Override
-	public void activateCustomer(Integer id) {
-		find(id).setStatus(CustomerStatus.ACTIVE);
+	public void activateCustomer(Long id) {
+		em.find(Customer.class, id).setStatus(CustomerStatus.ACTIVE);
 	}
 
 	@Override
-	public void deleteCustomer(Integer id) {
-		find(id).setStatus(CustomerStatus.DELETED);
+	public void deleteCustomer(Long id) {
+		em.find(Customer.class, id).setStatus(CustomerStatus.DELETED);
 		
 	}
 
 	@Override
-	public void banCustomer(Integer id) {
-		find(id).setStatus(CustomerStatus.BANNED);
+	public void banCustomer(Long id) {
+		em.find(Customer.class, id).setStatus(CustomerStatus.BANNED);
+	}
+
+	@Override
+	public void save(Customer customer) {
+		em.persist(customer);
 	}
 
 }

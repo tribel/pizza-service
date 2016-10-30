@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.domain.Pizza;
+import ua.rd.pizza_service.domain.order.Order;
 
 public class MaxPricePizzaDiscountTest {
 

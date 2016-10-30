@@ -1,5 +1,6 @@
-package ua.rd.pizza_service.domain;
+package ua.rd.pizza_service.domain.order;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -25,7 +26,8 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-
+import ua.rd.pizza_service.domain.Customer;
+import ua.rd.pizza_service.domain.Pizza;
 import ua.rd.pizza_service.domain.discount.DiscountType;
 
 
@@ -40,7 +42,7 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)  
+	@ManyToOne(cascade = CascadeType.PERSIST)  
 	@JoinColumn(name = "customer_id" )
 	private Customer customer;
 	
@@ -50,15 +52,16 @@ public class Order {
 	@Column(name = "pizza_count")
 	private Map<Pizza, Integer> pizzaMap;
 	
+	private LocalDateTime date;
 
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private OrderStatus status;
 	
 	@Transient
 	private List<DiscountType> discountList;
 	
 
-	public enum Status {
+	public enum OrderStatus {
 		NEW, IN_PROGRSS, DONE, CANCELED;
 		
 		private enum Transition {
@@ -67,17 +70,17 @@ public class Order {
 			FROM_CANCEL(CANCELED),
 			FROM_DONE(DONE);
 			
-			Status from;
-			EnumSet<Status> toStatuses;
+			OrderStatus from;
+			EnumSet<OrderStatus> toStatuses;
 			
-			private Transition(Status from, Status... to) {
+			private Transition(OrderStatus from, OrderStatus... to) {
 				this.from = from;
-				toStatuses = EnumSet.noneOf(Status.class);
+				toStatuses = EnumSet.noneOf(OrderStatus.class);
 				toStatuses.addAll(Arrays.asList(to));
 			}
 			
-			static final Map<Status, Set<Status>> transitions = 
-					new EnumMap<>(Status.class);
+			static final Map<OrderStatus, Set<OrderStatus>> transitions = 
+					new EnumMap<>(OrderStatus.class);
 			
 			static {
 				for(Transition t: Transition.values()) {
@@ -86,12 +89,13 @@ public class Order {
 			}
 		}
 		
-		public boolean canChangeTo(Status status) {
+		public boolean canChangeTo(OrderStatus status) {
 			return Transition.transitions.get(this).contains(status);
 		}
 	}
 
 	public Order() {
+		this.status = OrderStatus.NEW;
 	}
 
 	public Order(List<DiscountType> list) {
@@ -99,11 +103,19 @@ public class Order {
 	}
 	
 	
+	
+	public Order(Long id, Customer customer, List<DiscountType> discountList) {
+		this.id = id;
+		this.customer = customer;
+		this.status = OrderStatus.NEW;
+		this.discountList = discountList;
+	}
+
 	public Order(Customer customer, List<Pizza> pizzaList) {
 		super();
 		this.customer = customer;
 		setPizzaList(pizzaList);
-		this.status = Status.NEW;
+		this.status = OrderStatus.NEW;
 	}
 
 
@@ -115,11 +127,11 @@ public class Order {
 		this.id = id;
 	}
 	
-	public Map<Pizza, Integer> getPizzaMap() {
+	protected Map<Pizza, Integer> getPizzaMap() {
 		return pizzaMap;
 	}
 	
-	public void setPizzaMap(Map<Pizza, Integer> pizzaMap) {
+	protected void setPizzaMap(Map<Pizza, Integer> pizzaMap) {
 		this.pizzaMap = pizzaMap;
 	}
 
@@ -153,19 +165,27 @@ public class Order {
 		pizzaMap.put(pizza, (value == null) ? 1: value + 1);
 	}
 
-	public Status getStatus() {
+	public OrderStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(Status status) {
+	public void setStatus(OrderStatus status) {
 		if(!this.status.canChangeTo(status)) {
 			throw new IllegalArgumentException("Changing status invalid");
 		}
 		this.status = status;
 	}
 
+	public LocalDateTime getDate() {
+		return date;
+	}
+	
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+	
 	public void orderCancel() {
-		this.status = Status.CANCELED;
+		this.status = OrderStatus.CANCELED;
 	}
 	
 	
@@ -173,6 +193,10 @@ public class Order {
 		this.discountList = discountList;
 	}
 	
+	public List<DiscountType> getDiscountList() {
+		return discountList;
+	}
+
 	public void putOrderPriceToAccumulativeCard() {
 		if(isAccumulativeCartExist())
 			this.customer.getCard().setAccumulativeSum(this.calculateOrderPriceWithDiscount());

@@ -1,8 +1,6 @@
 package ua.rd.pizza_service.domain;
 
 
-import java.util.Arrays;
-
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

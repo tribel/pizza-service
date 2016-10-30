@@ -23,7 +23,7 @@ public class SimplePizzaServiceTest {
 		when(repository.find(anyInt())).thenReturn(new Pizza(1, "test", 10.0, PizzaType.MEAT));
 		
 		pizzaService = new SimplePizzaService(repository);
-		assertEquals(new Pizza(1, "test", 10.0, PizzaType.MEAT), pizzaService.getPizzaByID(10));
+		assertEquals(new Pizza(1, "test", 10.0, PizzaType.MEAT), pizzaService.find(10));
 
 	}
 

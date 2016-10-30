@@ -6,8 +6,9 @@ import ua.rd.pizza_service.domain.Customer;
 
 public interface CustomerRepository {
 
+	void save(Customer customer);
 	
-	Customer find(Integer id);
+	Customer find(Long id);
 	
 	void updateCustomer(Customer customer);
 	
@@ -17,9 +18,9 @@ public interface CustomerRepository {
 	
 	List<Customer> findDeactiveCustomer();
 	
-	void activateCustomer(Integer id);
+	void activateCustomer(Long id);
 	
-	void deleteCustomer(Integer id);
+	void deleteCustomer(Long id);
 	
-	void banCustomer(Integer id);
+	void banCustomer(Long id);
 }

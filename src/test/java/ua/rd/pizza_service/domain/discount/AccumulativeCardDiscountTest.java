@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import ua.rd.pizza_service.domain.AccumulativeCard;
 import ua.rd.pizza_service.domain.Customer;
-import ua.rd.pizza_service.domain.Order;
+import ua.rd.pizza_service.domain.order.Order;
 
 public class AccumulativeCardDiscountTest {
 

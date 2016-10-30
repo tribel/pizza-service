@@ -7,9 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import ua.rd.pizza_service.domain.AccumulativeCard;
 import ua.rd.pizza_service.domain.Customer;
-import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.domain.Pizza;
 import ua.rd.pizza_service.domain.Pizza.PizzaType;
+import ua.rd.pizza_service.domain.order.Order;
 import ua.rd.pizza_service.repository.PizzaRepository;
 import ua.rd.pizza_service.services.OrderService;
 

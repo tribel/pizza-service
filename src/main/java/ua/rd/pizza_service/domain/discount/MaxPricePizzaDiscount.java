@@ -2,8 +2,8 @@ package ua.rd.pizza_service.domain.discount;
 
 import org.springframework.stereotype.Component;
 
-import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.domain.Pizza;
+import ua.rd.pizza_service.domain.order.Order;
 
 @Component
 public class MaxPricePizzaDiscount extends DiscountType{

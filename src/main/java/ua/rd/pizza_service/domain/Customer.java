@@ -20,11 +20,11 @@ public class Customer {
 	private String name;
 	
 	@JoinColumn(name = "adress_id")
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private CustomerAddress address;
 	
 	@JoinColumn(name = "card_id")
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	private AccumulativeCard card;
 
 	@Enumerated(EnumType.STRING)

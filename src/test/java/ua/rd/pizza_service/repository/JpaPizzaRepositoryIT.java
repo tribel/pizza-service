@@ -2,8 +2,6 @@ package ua.rd.pizza_service.repository;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -26,19 +24,19 @@ public class JpaPizzaRepositoryIT extends RepositoryTestConfig{
 		saveImageToPizza(p, 
 				"C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\hawaii.png");
 		
-		nativeSave(p);
+		nativePizzaSave(p);
 		
 		p =  new Pizza(2, "testPizza2", 20.0, PizzaType.SEA);
 		saveImageToPizza(p,
 				"C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\papperoni.png");
-		nativeSave(p);
+		nativePizzaSave(p);
 		
 		
 		p =  new Pizza(3, "testPizza3", 25.0, PizzaType.VEGETERIAN);
 		saveImageToPizza(p, 
 				 "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\texas.png");
 	
-		nativeSave(p);
+		nativePizzaSave(p);
 	}
 	
 	
@@ -114,28 +112,7 @@ public class JpaPizzaRepositoryIT extends RepositoryTestConfig{
 		assertEquals(1, pizzas.size());
 	}
 
-	private void nativeSave(Pizza p) {
-		jdbcTemplate.update("INSERT INTO Pizza(id , name, price, image, status, pizzaType)"
-				+ " values(?, ?, ?, ?, ?, ?)", 
-				p.getId(), p.getName(), p.getPrice(), p.getImage(),p.getStatus().toString(),
-				p.getPizzaType().toString());
-	}
+
 	
-	private void saveImageToPizza(Pizza pizza, String path) {
-		File file = new File(path);
-		byte[] bFile = new byte[(int) file.length()];
-
-		try {
-			FileInputStream fileInputStream = new FileInputStream(file);
-			fileInputStream.read(bFile);
-			fileInputStream.close();
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
 	
-		pizza.setImage(bFile);
-	}
 }

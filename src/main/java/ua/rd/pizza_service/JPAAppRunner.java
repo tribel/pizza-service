@@ -13,9 +13,9 @@ import javax.persistence.Persistence;
 import ua.rd.pizza_service.domain.AccumulativeCard;
 import ua.rd.pizza_service.domain.Customer;
 import ua.rd.pizza_service.domain.CustomerAddress;
-import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.domain.Pizza;
 import ua.rd.pizza_service.domain.Pizza.PizzaType;
+import ua.rd.pizza_service.domain.order.Order;
 
 public class JPAAppRunner {
 

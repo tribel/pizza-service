@@ -1,6 +1,6 @@
 package ua.rd.pizza_service.domain.discount;
 
-import ua.rd.pizza_service.domain.Order;
+import ua.rd.pizza_service.domain.order.Order;
 
 public abstract class DiscountType {
 

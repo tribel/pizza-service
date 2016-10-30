@@ -14,9 +14,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import ua.rd.pizza_service.domain.Customer;
-import ua.rd.pizza_service.domain.Order;
 import ua.rd.pizza_service.domain.Pizza;
 import ua.rd.pizza_service.domain.Pizza.PizzaType;
+import ua.rd.pizza_service.domain.order.Order;
 import ua.rd.pizza_service.repository.OrderRepository;
 import ua.rd.pizza_service.services.PizzaService;
 import ua.rd.pizza_service.services.SimpleOrderService;
@@ -40,7 +40,7 @@ public class SimpleOrderServiceTest {
 	public void testPlaceNewOrder() {
 
 		
-		when(pizzaService.getPizzaByID(anyInt())).thenReturn(new Pizza(0, "name", 10.0, PizzaType.MEAT))
+		when(pizzaService.find(anyInt())).thenReturn(new Pizza(0, "name", 10.0, PizzaType.MEAT))
 												 .thenReturn(new Pizza(1, "name1", 15.0, PizzaType.SEA));
 	
 
