@@ -26,26 +26,26 @@ public class JPAAppRunner {
 		EntityManager em = emf.createEntityManager();  
 		
 		List<Pizza> pizzas = new ArrayList<>();
-		Pizza pizza1 = new Pizza("Bawarian", 5.5, PizzaType.MEAT);
+		Pizza pizza1 = new Pizza(1,"Bawarian", 5.5, PizzaType.MEAT);
 		saveImageToPizza(pizza1, "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\hawaii.png");
-		Pizza pizza2 = new Pizza("test", 21, PizzaType.VEGETERIAN);
+		Pizza pizza2 = new Pizza(2 ,"test", 21, PizzaType.VEGETERIAN);
 		saveImageToPizza(pizza2, "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\papperoni.png");
-		Pizza pizza3 = new Pizza("testq1", 10.5, PizzaType.SEA);
+		Pizza pizza3 = new Pizza(3 , "testq1", 10.5, PizzaType.SEA);
 		saveImageToPizza(pizza3, "C:\\Users\\Artem_Trybel\\workspace\\pizza-service\\images\\texas.png");
 		pizza3.setId(3);
 		pizzas.add(pizza1);
-		pizzas.add(pizza2);
+		pizzas.add(pizza1);
 		pizzas.add(pizza3);
 		
-		//Order order = new Order(new Customer("test", new CustomerAddress("test", "12", 23), 
-		//		new AccumulativeCard()	), pizzas);
+		Order order = new Order(new Customer("Dima", new CustomerAddress("Poznaki", "10", 25), 
+			new AccumulativeCard(5)	), pizzas);
 		
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		//em.persist(pizza1);
 	//	em.persist(pizza2);
 		//em.merge(pizza3);
-		//em.persist(order);
+		em.persist(order);
 		//em.persist(new Customer("customer1", new CustomerAddress("street1", "22", 65), new AccumulativeCard()));
 		//System.out.println(em.find(Pizza.class, 140));
 		et.commit();

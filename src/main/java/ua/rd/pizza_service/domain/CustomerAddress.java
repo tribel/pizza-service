@@ -21,13 +21,17 @@ public class CustomerAddress {
 
 	public CustomerAddress() {}
 
+	public CustomerAddress(Long id) {
+		this.id = id;
+	}
+	
 	public CustomerAddress(String sreet, String building, int flat) {
 		super();
 		this.sreet = sreet;
 		this.building = building;
 		this.flat = flat;
 	}
-	
+
 	public CustomerAddress(Long id, String sreet, String building, int flat) {
 		super();
 		this.id = id;
@@ -68,4 +72,11 @@ public class CustomerAddress {
 		this.flat = flat;
 	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
+	
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 }

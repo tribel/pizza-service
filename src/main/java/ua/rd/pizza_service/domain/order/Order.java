@@ -96,6 +96,7 @@ public class Order {
 
 	public Order() {
 		this.status = OrderStatus.NEW;
+		this.date = LocalDateTime.now();
 	}
 
 	public Order(List<DiscountType> list) {
@@ -105,17 +106,16 @@ public class Order {
 	
 	
 	public Order(Long id, Customer customer, List<DiscountType> discountList) {
+		this();
 		this.id = id;
 		this.customer = customer;
-		this.status = OrderStatus.NEW;
 		this.discountList = discountList;
 	}
 
 	public Order(Customer customer, List<Pizza> pizzaList) {
-		super();
+		this();
 		this.customer = customer;
 		setPizzaList(pizzaList);
-		this.status = OrderStatus.NEW;
 	}
 
 

@@ -57,8 +57,8 @@ public class SimpleOrderService implements OrderService{
 	}
 	
 	@Transactional
-	private Order saveOrder(Order order) {
-		return odRepository.saveOrder(order);
+	private void saveOrder(Order order) {
+		odRepository.saveOrder(order);
 	}
 
 	@Override

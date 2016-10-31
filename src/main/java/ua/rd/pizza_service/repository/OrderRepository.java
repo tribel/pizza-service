@@ -10,7 +10,7 @@ import ua.rd.pizza_service.domain.order.Order.OrderStatus;
 
 public interface OrderRepository {
 
-	Order saveOrder(Order order);
+	void saveOrder(Order order);
 	
 	List<Order> findAll();
 	

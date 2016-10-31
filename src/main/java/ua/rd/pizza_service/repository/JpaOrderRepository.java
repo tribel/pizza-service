@@ -18,8 +18,8 @@ public class JpaOrderRepository implements OrderRepository{
 	private EntityManager em;
 	
 	@Override
-	public Order saveOrder(Order order) {
-		return em.merge(order);
+	public void saveOrder(Order order) {
+		em.persist(order);
 	}
 
 	@Override

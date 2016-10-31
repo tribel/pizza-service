@@ -30,14 +30,16 @@ public class RepositoryTestConfig extends AbstractTransactionalJUnit4SpringConte
 	
 	protected void saveCustomer(Customer c, CustomerAddress ca, AccumulativeCard card) {
 		
-		jdbcTemplate.update("INSERT INTO CustomerAddress (id, sreet, building, flat) "
-				+ "values(?, ?, ?, ?)" ,
-				ca.getId(), ca.getSreet(), ca.getBuilding(), ca.getFlat());
+		nativeAddressSave(ca);
 		
-		jdbcTemplate.update("INSERT INTO AccumulativeCard (id, accumulativeSum) "
-				+ "values(?, ?)" ,
-				card.getId(), card.getAccumulativeSum());
-		
+		if(card != null) {
+			jdbcTemplate.update("INSERT INTO AccumulativeCard (id, accumulativeSum) "
+					+ "values(?, ?)" ,
+					card.getId(), card.getAccumulativeSum());
+		} else {
+			card = new AccumulativeCard();
+		}
+			
 		jdbcTemplate.update("INSERT INTO Customer (id, name, adress_id, card_id, status) "
 				+ "values(?, ?, ?, ?, ?)", 
 				c.getId(), c.getName(), ca.getId(), card.getId(), c.getStatus().toString());	
@@ -61,6 +63,12 @@ public class RepositoryTestConfig extends AbstractTransactionalJUnit4SpringConte
 		}
 	
 		pizza.setImage(bFile);
+	}
+	
+	protected void nativeAddressSave(CustomerAddress ca)  {
+		jdbcTemplate.update("INSERT INTO CustomerAddress (id, sreet, building, flat) "
+				+ "values(?, ?, ?, ?)" ,
+				ca.getId(), ca.getSreet(), ca.getBuilding(), ca.getFlat());
 	}
 	
 }
