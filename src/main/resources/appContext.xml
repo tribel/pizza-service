@@ -15,7 +15,7 @@
 	<context:component-scan base-package="ua.rd.pizza_service.domain"/>    
 
 
-	<bean name="order" class="ua.rd.pizza_service.domain.Order" scope="prototype" >
+	<bean name="order" class="ua.rd.pizza_service.domain.order.Order" scope="prototype" >
 		<property name="discountList" >
 			 <list value-type="ua.rd.pizza_service.domain.discount.DiscountType">
 				<ref bean = "maxPricePizzaDiscount"/>

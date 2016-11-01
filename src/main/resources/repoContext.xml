@@ -20,7 +20,8 @@
 		init-method="init"></bean> <bean name="orderResitory" class="ua.rd.pizza_service.repository.InMemoryOrderRepository"/> -->
 
 	<bean class="ua.rd.pizza_service.infrastructure.BenchmarkBeanPostProcessor" />
-
+	
+	
 
 	<context:property-placeholder
 		system-properties-mode="OVERRIDE" location="classpath:jdbc.properties" />
