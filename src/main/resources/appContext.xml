@@ -33,10 +33,10 @@
 
 	<bean class="ua.rd.pizza_service.infrastructure.BenchmarkBeanPostProcessor" />
 
-	<bean name="orderService" class="ua.rd.pizza_service.services.SimpleOrderService">
+<!-- 	<bean name="orderService" class="ua.rd.pizza_service.services.SimpleOrderService">
 		<lookup-method name="createNewOrder" bean="order" />
 
-	</bean>
+	</bean> -->
 
 
 	<tx:annotation-driven transaction-manager="transactionManager" />

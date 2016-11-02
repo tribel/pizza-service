@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.rd.pizza_service.domain.Customer;
@@ -16,7 +17,7 @@ import ua.rd.pizza_service.domain.order.Order.OrderStatus;
 import ua.rd.pizza_service.infrastructure.Benchmark;
 import ua.rd.pizza_service.repository.OrderRepository;
 
-//@Service
+@Service
 public class SimpleOrderService implements OrderService{
 
 	private PizzaService pzService;
@@ -29,7 +30,7 @@ public class SimpleOrderService implements OrderService{
 	}
 	
 
-	@Benchmark(enabled = true)
+	//@Benchmark(enabled = true)
 	@Override
 	@Transactional
 	public Order placeNewOrder(Customer customer, Integer... pizzasID) {
@@ -40,7 +41,7 @@ public class SimpleOrderService implements OrderService{
             tmpPizzas.add(getPizzaById(id));  
         }
 		
-		 Order newOrder = createNewOrder(); 
+		 Order newOrder = new Order(); 
 		 newOrder.setCustomer(customer);
 		 newOrder.setPizzaList(tmpPizzas);
 		 

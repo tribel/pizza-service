@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import ua.rd.pizza_service.domain.CustomerAddress;
 
-public class JpaCustomerAddressRepositoryTest extends RepositoryTestConfig{
+public class JpaCustomerAddressRepositoryIT extends RepositoryTestConfig{
 
 	@Autowired
 	private CustomerAddressRepository repository;
